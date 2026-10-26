@@ -21,7 +21,7 @@ MATERIALS = {
 
 # 2. 소재 1g이 처음 온도(start)에서 목표 온도(target)까지 데워지며 흡수하는 열
 def heat_per_gram(m, start, target):
-    if m["melt"] is None or target <= m["melt"]:
+    if m["melt"] is None or target < m["melt"]:
         return m["c"] * (target - start)  # 현열만 (녹지 않음)
 
     solid = m["c"] * (m["melt"] - start)          # 녹는점까지 데워짐 (현열)
