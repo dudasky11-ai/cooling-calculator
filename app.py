@@ -114,7 +114,7 @@ def run_console():
 WEB_URL = "https://cooling-calculator.streamlit.app"
 
 def open_web():
-    import subprocess, sys, os, webbrowser
+    import subprocess, sys, os, time, webbrowser
     try:
         import streamlit  # 설치돼 있는지만 확인
     except ImportError:
@@ -122,10 +122,10 @@ def open_web():
         webbrowser.open(WEB_URL)
         input("Enter를 누르면 닫힙니다.")
         return
-    print("\n브라우저에 웹앱을 엽니다... (끄려면 IDLE 메뉴 Shell > Restart Shell)")
-    subprocess.call([sys.executable, "-m", "streamlit", "run", os.path.abspath(__file__)])
-
-
+    print("\n웹앱을 켜는 중... 잠시 후 브라우저가 열립니다. (끄려면 새로 뜬 까만 창을 닫으세요)")
+    exe = sys.executable.replace("pythonw.exe", "python.exe")  # IDLE은 창 없는 pythonw로 실행되므로
+    subprocess.Popen([exe, "-m", "streamlit", "run", os.path.abspath(__file__), "--server.headless", "true"])
+    time.sleep(6); webbrowser.open("http://localhost:8501")  # 웹 서버가 켜지길 6초 기다린 뒤 열기
 # 8. 웹앱 화면 — 계산 함수(2, 3)는 위의 것을 그대로 쓰고, 입력과 출력만 웹으로
 def run_web():
     import streamlit as st
